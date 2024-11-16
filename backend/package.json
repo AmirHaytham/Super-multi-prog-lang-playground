@@ -2,15 +2,16 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
-"scripts": {
+  "scripts": {
     "start": "ts-node server.ts"
-}
-,
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.7.7",
+    "body-parser": "^1.20.3",
     "express": "^4.21.1"
   },
   "devDependencies": {
