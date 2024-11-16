@@ -1,0 +1,11 @@
+# Dockerfile-python
+FROM python:3.9-slim
+
+WORKDIR /usr/src/app
+
+# Add a script to execute code
+COPY run_code.sh /usr/src/app
+
+RUN chmod +x run_code.sh
+
+CMD ["./run_code.sh"]
