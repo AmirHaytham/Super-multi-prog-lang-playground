@@ -1,8 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 const app = express();
 const PORT = 5000;
+
+// Enable CORS
+app.use(cors());
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
