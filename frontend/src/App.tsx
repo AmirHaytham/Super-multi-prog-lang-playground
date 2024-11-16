@@ -3,18 +3,19 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [message, setMessage] = useState<string>('');
+  const [code, setCode] = useState<string>('');
   const [response, setResponse] = useState<string>('');
+  const [language, setLanguage] = useState<string>('python');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       // Make a POST request to the backend
-      const result = await axios.post('http://localhost:5000/api/message', { message });
+      const result = await axios.post('http://localhost:5000/api/execute', { language, code });
       setResponse(result.data);
     } catch (error) {
-      console.error("Error sending message to backend:", error);
-      setResponse("Error occurred while sending message.");
+      console.error("Error executing code:", error);
+      setResponse("Error occurred while executing the code.");
     }
   };
 
@@ -22,16 +23,21 @@ function App() {
     <div className="App">
       <header className="App-header">
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Enter your message"
+          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+            <option value="python">Python</option>
+            {/* Add more languages later */}
+          </select>
+          <textarea
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            placeholder="Enter your code here"
+            rows={10}
+            cols={50}
           />
-          <button type="submit">Send</button>
+          <button type="submit">Execute Code</button>
         </form>
         <div>
-          <p>Backend Response: {response}</p>
+          <p>Execution Response: {response}</p>
         </div>
       </header>
     </div>
