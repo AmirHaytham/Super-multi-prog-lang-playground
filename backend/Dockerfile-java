@@ -1,0 +1,10 @@
+# Dockerfile-java
+FROM openjdk:11-slim
+
+WORKDIR /usr/src/app
+
+COPY run_code.sh /usr/src/app
+
+RUN chmod +x run_code.sh
+
+CMD ["./run_code.sh"]
