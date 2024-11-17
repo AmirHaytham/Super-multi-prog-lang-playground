@@ -16,21 +16,32 @@ app.use(bodyParser.json());
 app.post('/api/execute', (req, res) => {
     const { language, code } = req.body;
 
-    if (language === 'python') {
-        // Run the Docker container for Python
-        exec(
-            `docker build -t python-runner -f Dockerfile-python . && docker run --rm -e USER_CODE="${code}" python-runner`,
-            (err, stdout, stderr) => {
-                if (err) {
-                    console.error('Execution error:', err);
-                    return res.status(500).send(stderr || 'Error during code execution');
-                }
-                res.send(stdout);
-            }
-        );
-    } else {
-        res.status(400).send('Language not supported yet');
+    let dockerCommand = '';
+    switch (language) {
+        case 'python':
+            dockerCommand = `docker build -t python-runner -f Dockerfile-python . && docker run --rm -e USER_CODE="${code}" python-runner`;
+            break;
+        case 'java':
+            dockerCommand = `docker build -t java-runner -f Dockerfile-java . && docker run --rm -e USER_CODE="${code}" java-runner`;
+            break;
+        case 'cpp':
+            dockerCommand = `docker build -t cpp-runner -f Dockerfile-cpp . && docker run --rm -e USER_CODE="${code}" cpp-runner`;
+            break;
+        case 'javascript':
+            dockerCommand = `docker build -t js-runner -f Dockerfile-js . && docker run --rm -e USER_CODE="${code}" js-runner`;
+            break;
+        default:
+            res.status(400).send('Language not supported yet');
+            return;
     }
+
+    exec(dockerCommand, (err, stdout, stderr) => {
+        if (err) {
+            console.error('Execution error:', err);
+            return res.status(500).send(stderr || 'Error during code execution');
+        }
+        res.send(stdout);
+    });
 });
 
 app.listen(PORT, () => {
