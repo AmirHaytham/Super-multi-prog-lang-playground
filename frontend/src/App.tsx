@@ -1,81 +1,79 @@
-import React, { useState } from 'react';
-import MonacoEditor from '@monaco-editor/react';
-import './App.css';
+import { useState } from 'react';
+import { Play, Save, Layout, Settings } from 'lucide-react';
+import CodeEditor from './components/Editor';
+import LanguageSelector from './components/LanguageSelector';
 
-const App: React.FC = () => {
-  // State to manage the code written by the user
-  const [userCode, setUserCode] = useState<string>('// Start coding here...');
-  const [language, setLanguage] = useState<string>('javascript');
+export default function App() {
+  const [language, setLanguage] = useState('javascript');
+  const [code, setCode] = useState('// Start coding here\n');
+  const [output, setOutput] = useState('');
 
-  // Handler for code changes in Monaco Editor
-  const handleEditorChange = (value: string | undefined) => {
-    setUserCode(value || '');
-  };
-
-  // Handler for language change
-  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setLanguage(event.target.value);
-  };
-
-  // Function to execute code (just logs for now, you can extend this)
-  const runCode = () => {
-    console.log('Code to execute:', userCode);
-    // Code to send the user's code to the backend for execution
-    // fetch('/execute', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     code: userCode,
-    //     language: language,
-    //   }),
-    // }).then((response) => response.json())
-    // .then((data) => console.log('Execution output:', data.output));
+  const handleRun = () => {
+    setOutput('Running code...\nThis is a frontend demo. Backend integration required for actual code execution.');
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Multi-Language Code Playground</h1>
-
-        {/* Language Selection */}
-        <div className="language-selector">
-          <label htmlFor="language">Choose Language: </label>
-          <select id="language" value={language} onChange={handleLanguageChange}>
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="cpp">C++</option>
-            <option value="java">Java</option>
-            <option value="ruby">Ruby</option>
-          </select>
+    <div className="min-h-screen bg-gray-900 text-gray-100">
+      {/* Header */}
+      <header className="border-b border-gray-800 bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-gray-900/75 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Layout className="w-6 h-6 text-indigo-500" />
+              <h1 className="text-xl font-bold">Code Playground</h1>
+            </div>
+            <div className="flex items-center gap-4">
+              <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                <Settings className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
         </div>
-
-        {/* Monaco Editor */}
-        <div className="editor-container">
-          <MonacoEditor
-            height="500px"
-            language={language}
-            theme="vs-dark"
-            value={userCode}
-            onChange={handleEditorChange}
-            options={{
-              selectOnLineNumbers: true,
-              automaticLayout: true,
-              minimap: { enabled: false },
-              fontSize: 14,
-              wordWrap: "on",
-            }}
-          />
-        </div>
-
-        {/* Run Code Button */}
-        <button onClick={runCode} className="run-button">
-          Run Code
-        </button>
       </header>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="flex flex-col gap-4 h-[calc(100vh-8rem)]">
+          {/* Toolbar */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <LanguageSelector selected={language} onSelect={setLanguage} />
+            </div>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => {}}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-gray-200 rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                <Save className="w-4 h-4" />
+                Save
+              </button>
+              <button
+                onClick={handleRun}
+                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 transition-colors"
+              >
+                <Play className="w-4 h-4" />
+                Run
+              </button>
+            </div>
+          </div>
+
+          {/* Editor and Output */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1">
+            <div className="h-full">
+              <CodeEditor
+                language={language}
+                code={code}
+                onChange={(value) => setCode(value || '')}
+              />
+            </div>
+            <div className="h-full">
+              <div className="h-full w-full rounded-lg bg-gray-800 p-4 font-mono text-sm overflow-auto">
+                <pre>{output || 'Output will appear here...'}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
-};
-
-export default App;
+}
