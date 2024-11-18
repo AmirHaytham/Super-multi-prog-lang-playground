@@ -22,10 +22,38 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+/* New styling for Monaco Editor integration */
+.editor-container {
+  width: 90%;
+  max-width: 1200px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.language-selector {
+  margin-bottom: 20px;
+}
+
+.run-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #61dafb;
+  border: none;
+  color: #282c34;
+  cursor: pointer;
+}
+
+.run-button:hover {
+  background-color: #4fa3d8;
 }
 
 @keyframes App-logo-spin {
