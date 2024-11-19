@@ -2,8 +2,6 @@
 
 A modern, web-based code editor and execution environment supporting multiple programming languages. Built with React, TypeScript, Node.js, and Docker.
 
-![Code Playground Screenshot](screenshot.png)
-
 ## Features
 
 - 🌈 Support for multiple programming languages:
@@ -142,17 +140,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Running Locally (Without Docker)
-
-### Prerequisites
-- Node.js v16 or higher
-- npm or yarn
-- Required language runtimes:
-  - C++ compiler (g++)
-  - Go
-  - Ruby
-  - Python 3.9+
-
-### Frontend Setup
-1. Navigate to the frontend directory:
