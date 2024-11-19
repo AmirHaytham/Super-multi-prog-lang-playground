@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3007:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:5007
+      - REACT_APP_REPORT_WEB_VITALS=true
+      - WDS_SOCKET_PORT=0
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5007:5002"
+    volumes:
+      - ./backend:/usr/src/app
+    environment:
+      - NODE_ENV=development
+      - PORT=5002
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

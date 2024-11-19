@@ -15,7 +15,7 @@ const Editor: React.FC<EditorProps> = ({ language, code, onCodeChange }) => {
         language={language}
         theme="vs-dark"
         value={code}
-        onChange={(value) => onCodeChange(value || '')}
+        onChange={(value: string | undefined) => onCodeChange(value || '')}
         options={{
           selectOnLineNumbers: true,
           automaticLayout: true,

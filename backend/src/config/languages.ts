@@ -5,13 +5,12 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
     fileExtension: '.js',
     runCommand: ['node', '{filename}'],
     prepareCode: (code: string) => `
-      const originalConsoleLog = console.log;
       let output = [];
+      const originalConsoleLog = console.log;
       console.log = (...args) => {
         output.push(args.map(arg => 
           typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
         ).join(' '));
-        originalConsoleLog(...args);
       };
 
       try {
@@ -20,9 +19,7 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
         console.error(error.message);
       }
 
-      if (output.length > 0) {
-        console.log(output.join('\\n'));
-      }
+      process.stdout.write(output.join('\\n'));
     `
   },
   cpp: {

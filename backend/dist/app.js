@@ -7,14 +7,16 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const codeRoutes_1 = __importDefault(require("./routes/codeRoutes"));
 const app = (0, express_1.default)();
-// Configure CORS
+// Configure CORS to allow all origins in development
 app.use((0, cors_1.default)({
-    origin: process.env.NODE_ENV === 'production'
-        ? 'https://your-production-domain.com'
-        : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
+    origin: '*',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 }));
 app.use(express_1.default.json());
 app.use('/api', codeRoutes_1.default);
+// Add a health check endpoint
+app.get('/health', (_, res) => {
+    res.json({ status: 'ok' });
+});
 exports.default = app;

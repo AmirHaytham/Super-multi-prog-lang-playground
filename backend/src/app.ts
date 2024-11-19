@@ -4,16 +4,19 @@ import codeRoutes from './routes/codeRoutes';
 
 const app = express();
 
-// Configure CORS
+// Configure CORS to allow all origins in development
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://your-production-domain.com' 
-    : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003', 'http://localhost:3005'],
+  origin: '*',  // Allow all origins in development
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type']
 }));
 
 app.use(express.json());
 app.use('/api', codeRoutes);
+
+// Add a health check endpoint
+app.get('/health', (_, res) => {
+  res.json({ status: 'ok' });
+});
 
 export default app; 

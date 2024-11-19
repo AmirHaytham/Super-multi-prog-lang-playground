@@ -37,7 +37,7 @@ class CodeExecutor {
     }
     async ensureTempDir() {
         try {
-            await fs.mkdir(this.TEMP_DIR, { recursive: true });
+            await fs.mkdir(this.TEMP_DIR, { recursive: true, mode: 0o777 });
         }
         catch (error) {
             console.error('Failed to create temp directory:', error);
@@ -63,11 +63,14 @@ class CodeExecutor {
     }
     executeCommand(command, cwd) {
         return new Promise((resolve, reject) => {
+            console.log('Executing command:', command.join(' '));
+            console.log('Working directory:', cwd);
             const timeout = setTimeout(() => {
                 reject(new Error('Execution timed out'));
             }, this.EXECUTION_TIMEOUT);
             (0, child_process_1.exec)(command.join(' '), { cwd }, (error, stdout, stderr) => {
                 clearTimeout(timeout);
+                console.log('Command output:', { stdout, stderr, error });
                 if (error && !stderr) {
                     reject(error);
                 }
@@ -78,14 +81,15 @@ class CodeExecutor {
         });
     }
     async executeCode(code, language) {
+        console.log(`Starting code execution for ${language}`);
         const config = languages_1.LANGUAGE_CONFIGS[language];
         if (!config) {
             return { error: `Unsupported language: ${language}` };
         }
         let tempFiles;
         try {
-            // Create temp files first - this will always return a value or throw
             tempFiles = await this.createTempFile(code, language);
+            console.log('Created temp files:', tempFiles);
             // Compilation phase (if needed)
             if (config.compileCommand) {
                 const compileCommand = config.compileCommand.map(arg => arg
@@ -107,6 +111,7 @@ class CodeExecutor {
             return { output: stdout };
         }
         catch (error) {
+            console.error('Error executing code:', error);
             return { error: error instanceof Error ? error.message : 'Unknown error' };
         }
         finally {

@@ -26,7 +26,7 @@ export class CodeExecutor {
 
   private async ensureTempDir(): Promise<void> {
     try {
-      await fs.mkdir(this.TEMP_DIR, { recursive: true });
+      await fs.mkdir(this.TEMP_DIR, { recursive: true, mode: 0o777 });
     } catch (error) {
       console.error('Failed to create temp directory:', error);
     }
