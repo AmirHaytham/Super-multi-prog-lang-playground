@@ -23,7 +23,9 @@ A modern, web-based code editor and execution environment supporting multiple pr
   - Split-screen layout
   - Custom scrollbars
   - Loading animations
-
+## 📸 Screenshots
+![Homepage](https://github.com/AmirHaytham/Super-multi-prog-lang-playground/blob/master/Screenshot%20(88).png)
+ 
 ## Installation
 
 ### Prerequisites
