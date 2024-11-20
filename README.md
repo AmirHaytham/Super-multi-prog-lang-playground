@@ -17,12 +17,19 @@ A modern, web-based code editor and execution environment supporting multiple pr
   - Error detection
   - Multiple themes (Dark, Light, High Contrast)
 
+- ⚙️ Real-time Code Execution:
+  - Secure sandboxed environment
+  - Quick feedback
+  - Error handling
+  - Output display
+    
 - 🎨 Modern UI:
   - Responsive design
   - Dark mode by default
   - Split-screen layout
   - Custom scrollbars
-  - Loading animations
+  - Language selector
+    
 ## 📸 Screenshots
 ![Homepage](https://github.com/AmirHaytham/Super-multi-prog-lang-playground/blob/master/Screenshot%20(88).png)
  
@@ -88,40 +95,7 @@ Backend (.env):
 - NODE_ENV=development - Environment mode
 - PORT=5002 - Port number for backend server
 
-
-## Features
-
-- 🌈 Multiple Programming Language Support:
-  - C++ (⚡)
-  - JavaScript (📜) 
-  - Ruby (💎)
-  - Go (🔵)
-
-- 💻 Rich Code Editor:
-  - Syntax highlighting
-  - Auto-completion
-  - Multiple themes (Dark, Light, High Contrast)
-  - Customizable settings
-  - Vim/Emacs keybindings support
-  - Line numbers
-  - Minimap
-  - Word wrap options
-
-- ⚙️ Real-time Code Execution:
-  - Secure sandboxed environment
-  - Quick feedback
-  - Error handling
-  - Output display
-
-- 🎨 Modern UI:
-  - Clean and intuitive interface
-  - Responsive design
-  - Split-pane layout
-  - Settings modal
-  - Language selector
-
 ## Architecture
-
 The application follows a client-server architecture:
 
 ### Frontend
