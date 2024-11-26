@@ -44,7 +44,7 @@ A modern, web-based code editor and execution environment supporting multiple pr
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/code-playground.git
+   git clone https://github.com/AmirHaytham/code-playground.git
    cd code-playground
    ```
 
