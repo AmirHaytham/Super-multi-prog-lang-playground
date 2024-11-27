@@ -45,7 +45,7 @@ A modern, web-based code editor and execution environment supporting multiple pr
 1. Clone the repository:
    ```bash
    git clone https://github.com/AmirHaytham/Super-multi-prog-lang-playground.git
-   cd code-playground
+   cd Super-multi-prog-lang-playground
    ```
 
 2. Start the application using Docker Compose:
