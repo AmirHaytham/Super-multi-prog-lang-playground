@@ -5,16 +5,33 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
     fileExtension: '.js',
     runCommand: (filename) => ['node', filename],
     prepareCode: (code) => {
-      // Capture console.log output instead of letting it go to stdout
+      // Capture all output and prevent it from going to stdout
       return `
         let output = '';
-        console.log = (...args) => {
-          output += args.join(' ') + '\\n';
+        const originalConsole = console;
+        console = {
+          ...console,
+          log: (...args) => {
+            output += args.join(' ') + '\\n';
+          }
         };
         
-        ${code}
+        // Capture process.stdout.write
+        const originalStdoutWrite = process.stdout.write;
+        process.stdout.write = (chunk) => {
+          output += chunk;
+          return true;
+        };
         
-        process.stdout.write(output);
+        try {
+          ${code}
+        } finally {
+          // Write the captured output only once
+          originalStdoutWrite.call(process.stdout, output);
+          // Restore original stdout
+          process.stdout.write = originalStdoutWrite;
+          console = originalConsole;
+        }
       `;
     }
   },
