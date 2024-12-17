@@ -102,7 +102,8 @@ export class CodeExecutor {
 
       // Compilation phase (if needed)
       if (config.compileCommand) {
-        const compileCommand = config.compileCommand.map(arg =>
+        const compileArgs = config.compileCommand(tempFiles.filename, tempFiles.executable || '');
+        const compileCommand = compileArgs.map((arg: string) =>
           arg
             .replace('{filename}', tempFiles.filename)
             .replace('{executable}', tempFiles.executable || '')
@@ -119,7 +120,7 @@ export class CodeExecutor {
       }
 
       // Execution phase
-      const runCommand = config.runCommand.map(arg =>
+      const runCommand = config.runCommand(tempFiles.filename, tempFiles.executable).map((arg: string) =>
         arg
           .replace('{filename}', tempFiles.filename)
           .replace('{executable}', tempFiles.executable || '')
