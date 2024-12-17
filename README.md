@@ -11,7 +11,7 @@
 A modern, secure, and powerful web-based code execution environment supporting multiple programming languages. Built with React, TypeScript, Node.js, and Docker for secure code execution.
 
 <div align="center">
-  <img src="screenshot.png" alt="Code Playground Screenshot" width="800"/>
+  <img src="https://github.com/AmirHaytham/Super-multi-prog-lang-playground/blob/master/Screenshot%20(88).png" alt="Code Playground Screenshot" width="800"/>
 </div>
 
 ## 📑 Table of Contents
