@@ -8,7 +8,6 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
       // Capture console.log output instead of letting it go to stdout
       return `
         let output = '';
-        const originalLog = console.log;
         console.log = (...args) => {
           output += args.join(' ') + '\\n';
         };
